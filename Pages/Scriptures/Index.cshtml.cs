@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyScriptureJournal.Data;
 using MyScriptureJournal.Models;
@@ -19,29 +20,41 @@ namespace MyScriptureJournal
             _context = context;
         }
 
+        // search
         public IList<Scriptures> Scripture { get;set; }
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
-
-        public IList<Scriptures> Note { get; set; }
+        public SelectList Note { get; set; }
         [BindProperty(SupportsGet = true)]
-        public string SearchString2 { get; set; }
+        public string SearchNote { get; set; }
+
+        //Sorting
+
+
+       
+
+
         public async Task OnGetAsync()
-          {
+        {
+            IQueryable<string> noteQuery = from m in _context.Scriptures
+                                           orderby m.Note
+                                            select m.Note;
             var Scriptures1 = from m in _context.Scriptures select m;
-            var Notes = from m in _context.Scriptures select m;
+            //search
             if (!string.IsNullOrEmpty(SearchString))
             {
                 Scriptures1 = Scriptures1.Where(s => s.Scripture.Contains(SearchString));
             }
-            if (!string.IsNullOrEmpty(SearchString2))
+
+            if (!string.IsNullOrEmpty(SearchNote))
             {
-                Notes = Notes.Where(s => s.Note.Contains(SearchString2));
+                Scriptures1 = Scriptures1.Where(x => x.Note == SearchNote);
             }
-            Note = await Notes.ToListAsync();
+            Note = new SelectList(await noteQuery.Distinct().ToListAsync());
             Scripture = await Scriptures1.ToListAsync();
+            
         }
           
         
-}
+    }
 }

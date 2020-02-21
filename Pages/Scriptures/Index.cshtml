@@ -15,8 +15,9 @@
     <p>
         Scripture: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Filter" />
-        Note: <input type="text" asp-for="SearchString2" />
-        <input type="submit" value="Filter" />
+        <select asp-for="SearchNote" asp-items="Model.Note">
+            <option value="">All</option>
+        </select>
     </p>
 </form>
 
