@@ -13,11 +13,9 @@
 
 <form>
     <p>
-        Scripture: <input type="text" asp-for="SearchString" />
+        Book: <input type="text" asp-for="SearchString" />
+        Keyword: <input type="text" asp-for="SearchNote" />
         <input type="submit" value="Filter" />
-        <select asp-for="SearchNote" asp-items="Model.Note">
-            <option value="">All</option>
-        </select>
     </p>
 </form>
 
