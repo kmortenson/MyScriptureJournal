@@ -25,10 +25,14 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Scripture[0].Scripture)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.ScriptureSort">
+                    @Html.DisplayNameFor(model => model.Scripture[0].Scripture)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Scripture[0].DateEntered)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort">
+                    @Html.DisplayNameFor(model => model.Scripture[0].DateEntered)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Scripture[0].Note)

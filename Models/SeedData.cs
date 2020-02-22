@@ -30,23 +30,23 @@ namespace MyScriptureJournal.Models
 
                     new Scriptures
                     {
-                        Scripture = "Nephi1",
-                        DateEntered = DateTime.Parse("2020-2-18"),
-                        Note = "Text here"
+                        Scripture = "1 Nephi 3:7",
+                        DateEntered = DateTime.Parse("2020-2-21"),
+                        Note = "I awill go and do the things which the Lord hath commanded,"
                     },
 
                     new Scriptures
                     {
-                        Scripture = "Nephi1",
-                        DateEntered = DateTime.Parse("2020-2-18"),
-                        Note = "Text here"
+                        Scripture = "Matthew 6:21",
+                        DateEntered = DateTime.Parse("2020-2-19"),
+                        Note = "For where your treasure is, there will your heart be also."
                     },
 
                     new Scriptures
                     {
-                        Scripture = "Nephi1",
+                        Scripture = "Matthew 5:6",
                         DateEntered = DateTime.Parse("2020-2-18"),
-                        Note = "Text here"
+                        Note = "Let your light so shine before men, that they may see your good works, and glorify your Father which is in heaven."
                     }
                 );
                 context.SaveChanges();

@@ -30,15 +30,18 @@ namespace MyScriptureJournal
 
         //Sorting
 
+        public string ScriptureSort { get; set; }
+        public string DateSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
 
-       
 
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortOrder)
         {
             IQueryable<string> noteQuery = from m in _context.Scriptures
                                            orderby m.Note
-                                            select m.Note;
+                                           select m.Note;
             var Scriptures1 = from m in _context.Scriptures select m;
             //search
             if (!string.IsNullOrEmpty(SearchString))
@@ -52,9 +55,36 @@ namespace MyScriptureJournal
             }
             Note = new SelectList(await noteQuery.Distinct().ToListAsync());
             Scripture = await Scriptures1.ToListAsync();
-            
-        }
-          
+
+
+            //sort
+
+            {
+                ScriptureSort = String.IsNullOrEmpty(sortOrder) ? "Scripture_desc" : "";
+                DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+
+                IQueryable<Scriptures> sortVar = from s in _context.Scriptures
+                                                 select s;
+
+                switch (sortOrder)
+                {
+                    case "Scripture_desc":
+                        sortVar = sortVar.OrderByDescending(s => s.Scripture);
+                        break;
+                    case "Date":
+                        sortVar = sortVar.OrderBy(s => s.DateEntered);
+                        break;
+                    case "date_desc":
+                        sortVar = sortVar.OrderByDescending(s => s.DateEntered);
+                        break;
+                    default:
+                        sortVar = sortVar.OrderBy(s => s.Scripture);
+                        break;
+                }
+
+                Scripture = await sortVar.AsNoTracking().ToListAsync();
+            }
+        } 
         
     }
 }
