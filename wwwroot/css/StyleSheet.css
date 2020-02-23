@@ -1,6 +1,15 @@
 ﻿/* modification Style sheet for shared layout and google font*/
 
-
+body{
+    background-color:aqua
+}
 .container {
+    background-color: white
+}
+.display-4 {
+font-family: 'Pacifico',;
+}
+
+.footer {
     background-color: aqua;
 }
